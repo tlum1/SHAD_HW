@@ -2,6 +2,13 @@ import scrapy
 from bs4 import BeautifulSoup
 import requests
 from scrapy.exceptions import CloseSpider
+import re
+
+
+def clear_string(s: str) -> str:
+    s = s.replace(" ", "")
+    s = re.sub(r"\[.*?]", "",  s)
+    return s
 
 
 class GITSpider(scrapy.Spider):
@@ -35,7 +42,7 @@ class GITSpider(scrapy.Spider):
         for row in table.findAll("tr"):
             if row.find("td") and row.find("th"):
                 th = row.find("th").getText().strip()
-                td = row.find("td").getText().strip()
+                td = clear_string(row.find("td").getText().strip())
                 if th in "РежиссёрРежиссёры":
                     item["Режиссёр"] = td
                 if th in "ЖанрыЖанр":
