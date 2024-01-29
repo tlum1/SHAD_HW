@@ -38,7 +38,7 @@ class GITSpider(scrapy.Spider):
         if "Оглавление:…в начало" == item["name"]:
             return None
 
-        table = soup.find("table")
+        table = soup.find("table", class_="infobox")
         for row in table.findAll("tr"):
             if row.find("td") and row.find("th"):
                 th = row.find("th").getText().strip()
