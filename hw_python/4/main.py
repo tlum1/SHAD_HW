@@ -17,7 +17,6 @@ class GITSpider(scrapy.Spider):
 
         page_link = response.xpath("//div[@id='mw-pages']//a/@href")[-1].extract()
         page_type = response.xpath("//div[@id='mw-pages']//a/text()")[-1].extract()
-        print(page_type)
         if page_type != "Следующая страница":
             raise CloseSpider('Дошли до последней страницы')
 
